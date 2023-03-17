@@ -72,6 +72,14 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+		<repository>
+			<id>deploymentRepo</id>
+			<name>Nexus Repository </name>
+			<url>http://172.10.0.140:8000/repository/maven-snapshots/</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -81,7 +89,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>3.1.0</version>git
 			</plugin>
 		</plugins>
 
