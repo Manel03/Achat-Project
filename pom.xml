@@ -76,7 +76,7 @@
 		<repository>
 			<id>deploymentRepo</id>
 			<name>Nexus Repository </name>
-			<url>http://172.10.0.140:8000/repository/maven-snapshots/</url>
+			<url>http://172.10.0.140:8000/repository/maven-releases/</url>
 		</repository>
 	</distributionManagement>
 
