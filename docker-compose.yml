@@ -6,7 +6,12 @@ services:
     image: mysql:8
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: 'tpachatdb'
+      MYSQL_USER: 'root'
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - 3306:3306
     volumes:
       - /home/mysql/data:/var/lib/mysql
   spring_app:
@@ -14,6 +19,11 @@ services:
     container_name: tp-achat
     restart: on-failure
     ports:
-      - 9000:9000
+      - 8089:8089
+    
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
     depends_on:
       - mysqldb            
