@@ -8,6 +8,8 @@ services:
     image: mysql
     restart: always
     container_name: mysql-db
+    ports:
+      - 3308:3306
     #Environment variable for password and default database
     environment:
       MYSQL_ROOT_PASSWORD: 'password'
