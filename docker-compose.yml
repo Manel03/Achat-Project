@@ -1,0 +1,43 @@
+version: "3.3"
+
+#Define services
+services:
+
+  #MySql Database for application
+  mysql-db:
+    image: mysql
+    restart: always
+    container_name: mysql-db
+    #Environment variable for password and default database
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: 'tpachato'
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+
+  #MySql Web UI
+  php-my-admin:
+    image: phpmyadmin
+    restart: always
+    container_name: php-my-admin
+    ports:
+      - 8086:80 #Forwars the exposed port 80 on the container to port 8081 on the host machine
+    environment:        
+      PMA_HOST: mysql-db
+
+  #Back-end Spring Boot Application
+  springboot-app:
+    #The docker file in BE, build the jar and provides the docker image.
+    image: refkakhanoussi/application-tp-achat
+    container_name: springboot-app
+    restart: always
+    #Environment variable for Spring Boot Application.
+    environment:
+      MYSQL_HOST: 'mysql-db'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_DATABASE: 'tpachato'
+    ports:
+      - 9090:9090 #Forwars the exposed port 8080 on the container to port 8080 on the host machine
+    links:
+      - mysql-db
