@@ -28,7 +28,7 @@ services:
   #Back-end Spring Boot Application
   springboot-app:
     #The docker file in BE, build the jar and provides the docker image.
-    image: refkakhanoussi/application-tp-achat
+    image: refkakhanoussi/tp-achat
     container_name: springboot-app
     restart: always
     #Environment variable for Spring Boot Application.
