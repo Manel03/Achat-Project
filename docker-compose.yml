@@ -2,7 +2,7 @@ version: "3"
 
 services:
   mysqldb:
-    container_name: mysqldb
+    container_name: mysqldbtp
     image: mysql:8
     restart: unless-stopped
     environment:
