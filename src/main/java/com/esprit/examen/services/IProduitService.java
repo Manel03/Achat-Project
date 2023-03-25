@@ -11,6 +11,8 @@ public interface IProduitService {
 
 	void deleteProduit(Long id);
 
+	/*void deleteAllProduit();*/
+
 	Produit updateProduit(Produit p);
 
 	Produit retrieveProduit(Long id);

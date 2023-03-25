@@ -46,6 +46,11 @@ public class ProduitServiceImpl implements IProduitService {
 		produitRepository.deleteById(produitId);
 	}
 
+	/*@Override
+	public void deleteAllProduit() {
+		produitRepository.deleteAllProduit();
+	}*/
+
 	@Override
 	public Produit updateProduit(Produit p) {
 		return produitRepository.save(p);
