@@ -19,7 +19,7 @@ services:
     image: maneeel/tp-achat
     container_name: tp-achat
     restart: on-failure
-     environment:
+    environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.username" : "devops",
         "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/tpachato?useSSL=false",
