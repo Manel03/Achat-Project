@@ -72,7 +72,7 @@ public class ProduitMockServiceTest {
         Produit result = produitService.addProduit(p1);
         assertNotNull(result);
         assertEquals("Produit 1", result.getLibelleProduit());
-        log.info(" with mock-added-produit : " +result.getLibelleProduit());
+        log.info(" with mock-produit  added: " +result.getLibelleProduit());
     }
 
     @Test
