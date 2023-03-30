@@ -15,6 +15,6 @@ services:
     container_name: dockercomposeachat
     restart: on-failure
     ports:
-      - 8089:8089
+      - 3308:3306
     depends_on:
       - mysqldb
