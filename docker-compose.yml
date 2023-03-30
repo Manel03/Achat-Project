@@ -1,21 +1,21 @@
 version: "3.9"
 
 services:
-  mysqldb:
-    container_name: mysqldb
-    image: mysql:8
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: 'devops'
-    volumes:
-      - /home/mysql/daata:/var/lib/mysql
+ mysqldb:
+  container_name: mysqldb
+  image: mysql:8
+  restart: unless-stopped
+  environment:
+   MYSQL_ROOT_PASSWORD: 'devops'
+  volumes:
+   - /home/mysql/daata:/var/lib/mysql
       
   spring_app:
-    image: farahabsi/tp-achat
-    container_name: tp-achat
-    restart: on-failure
-    ports:
-      - 9090:9090
-    depends_on:
-      - mysqldb
+   image: farahabsi/tp-achat
+   container_name: tp-achat
+   restart: on-failure
+   ports:
+    - 9090:9090
+   depends_on:
+    - mysqldb
    
