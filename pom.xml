@@ -52,12 +52,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<version>5.4.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
@@ -98,11 +92,10 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.14.1</version>
+				<version>3.0.0-M7</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.junit.jupiter</groupId>
@@ -111,7 +104,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			</plugins>
+		</plugins>
 	</build>
 
 
