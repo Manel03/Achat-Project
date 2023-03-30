@@ -1,19 +1,17 @@
 package com.esprit.examen.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.esprit.examen.entities.CategorieProduit;
-import com.esprit.examen.entities.Produit;
+import com.esprit.examen.repositories.CategorieProduitRepository;
 
 @SpringBootTest
 public class CategorieProduitServiceTest {
@@ -22,56 +20,52 @@ public class CategorieProduitServiceTest {
     private ICategorieProduitService categorieProduitService;
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @BeforeEach
-    public void setUp() {
-        jdbcTemplate.update("DELETE FROM categorie_produit");
-    }
+    private CategorieProduitRepository categorieProduitRepository;
 
     @Test
     public void testRetrieveAllCategorieProduits() {
-        CategorieProduit cp1 = new CategorieProduit(null, "C001", "Categorie 1");
-        CategorieProduit cp2 = new CategorieProduit(null, "C002", "Categorie 2");
-        CategorieProduit result1 = categorieProduitService.addCategorieProduit(cp1);
-        CategorieProduit result2 = categorieProduitService.addCategorieProduit(cp2);
+        CategorieProduit cp1 = new CategorieProduit(null, "Cat 1", "Description 1", null);
+        CategorieProduit cp2 = new CategorieProduit(null, "Cat 2", "Description 2", null);
+        categorieProduitService.addCategorieProduit(cp1);
+        categorieProduitService.addCategorieProduit(cp2);
         List<CategorieProduit> result = categorieProduitService.retrieveAllCategorieProduits();
         assertEquals(2, result.size());
-        assertEquals("Categorie 1", result.get(0).getLibelleCategorieProduit());
-        assertEquals("Categorie 2", result.get(1).getLibelleCategorieProduit());
+        assertEquals("Cat 1", result.get(0).getNom());
+        assertEquals("Cat 2", result.get(1).getNom());
     }
 
     @Test
     public void testAddCategorieProduit() {
-        CategorieProduit cp1 = new CategorieProduit(null, "C001", "Categorie 1");
-        CategorieProduit result = categorieProduitService.addCategorieProduit(cp1);
+        CategorieProduit cp = new CategorieProduit(null, "Cat 1", "Description 1", null);
+        CategorieProduit result = categorieProduitService.addCategorieProduit(cp);
         assertNotNull(result);
-        assertEquals("Categorie 1", result.getLibelleCategorieProduit());
+        assertEquals("Cat 1", result.getNom());
     }
 
     @Test
     public void testDeleteCategorieProduit() {
-        CategorieProduit cp1 = new CategorieProduit(null, "C001", "Categorie 1");
-        CategorieProduit result2 = categorieProduitService.addCategorieProduit(cp1);
-        categorieProduitService.deleteCategorieProduit(result2.getIdCategorieProduit());
-        CategorieProduit result = categorieProduitService.retrieveCategorieProduit(result2.getIdCategorieProduit());
-        assertNull(result);
+        CategorieProduit cp = new CategorieProduit(null, "Cat 1", "Description 1", null);
+        CategorieProduit result = categorieProduitService.addCategorieProduit(cp);
+        categorieProduitService.deleteCategorieProduit(result.getId());
+        CategorieProduit deleted = categorieProduitService.retrieveCategorieProduit(result.getId());
+        assertNull(deleted);
     }
 
     @Test
     public void testUpdateCategorieProduit() {
-        CategorieProduit cp1 = new CategorieProduit(null, "C001", "Categorie 1");
-        CategorieProduit result = categorieProduitService.updateCategorieProduit(cp1);
-        assertNotNull(result);
-        assertEquals("Categorie 1", result.getLibelleCategorieProduit());
+        CategorieProduit cp = new CategorieProduit(null, "Cat 1", "Description 1", null);
+        CategorieProduit result = categorieProduitService.addCategorieProduit(cp);
+        result.setNom("Updated Cat 1");
+        CategorieProduit updated = categorieProduitService.updateCategorieProduit(result);
+        assertEquals("Updated Cat 1", updated.getNom());
     }
 
     @Test
     public void testRetrieveCategorieProduit() {
-        CategorieProduit cp1 = new CategorieProduit(null, "C001", "Categorie 1");
-        CategorieProduit result2 = categorieProduitService.addCategorieProduit(cp1);
-        CategorieProduit result = categorieProduitService.retrieveCategorieProduit(result2.getIdCategorieProduit());
-        assertNotNull(result);
-        assertEquals("Categorie 1", result.getLibelleCategorieProduit());
+        CategorieProduit cp = new CategorieProduit(null, "Cat 1", "Description 1", null);
+        CategorieProduit result = categorieProduitService.addCategorieProduit(cp);
+        CategorieProduit retrieved = categorieProduitService.retrieveCategorieProduit(result.getId());
+        assertNotNull(retrieved);
+        assertEquals("Cat 1", retrieved.getNom());
     }
 }
