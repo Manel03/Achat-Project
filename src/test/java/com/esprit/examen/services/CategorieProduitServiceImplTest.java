@@ -1,14 +1,14 @@
 package com.esprit.examen.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -24,72 +24,68 @@ public class CategorieProduitServiceImplTest {
     @InjectMocks
     private CategorieProduitServiceImpl categorieProduitService;
 
-    private CategorieProduit categorieProduit1;
-    private CategorieProduit categorieProduit2;
-
-    @BeforeEach
-    public void setUp() {
+    @Before
+    public void init() {
         MockitoAnnotations.initMocks(this);
-
-        categorieProduit1 = new CategorieProduit();
-        categorieProduit1.setId(1L);
-        categorieProduit1.setNom("Category 1");
-
-        categorieProduit2 = new CategorieProduit();
-        categorieProduit2.setId(2L);
-        categorieProduit2.setNom("Category 2");
     }
 
     @Test
-    public void retrieveAllCategorieProduitsTest() {
-        List<CategorieProduit> categorieProduits = new ArrayList<>();
-        categorieProduits.add(categorieProduit1);
-        categorieProduits.add(categorieProduit2);
+    public void testRetrieveAllCategorieProduits() {
+        List<CategorieProduit> expectedCategorieProduits = new ArrayList<>();
+        expectedCategorieProduits.add(new CategorieProduit(1L, "category 1"));
+        expectedCategorieProduits.add(new CategorieProduit(2L, "category 2"));
 
-        when(categorieProduitRepository.findAll()).thenReturn(categorieProduits);
+        when(categorieProduitRepository.findAll()).thenReturn(expectedCategorieProduits);
 
-        List<CategorieProduit> result = categorieProduitService.retrieveAllCategorieProduits();
+        List<CategorieProduit> actualCategorieProduits = categorieProduitService.retrieveAllCategorieProduits();
 
-        assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getNom()).isEqualTo("Category 1");
-        assertThat(result.get(1).getNom()).isEqualTo("Category 2");
+        assertEquals(expectedCategorieProduits.size(), actualCategorieProduits.size());
+        assertEquals(expectedCategorieProduits.get(0).getNom(), actualCategorieProduits.get(0).getNom());
+        assertEquals(expectedCategorieProduits.get(1).getNom(), actualCategorieProduits.get(1).getNom());
     }
 
     @Test
-    public void addCategorieProduitTest() {
-        when(categorieProduitRepository.save(categorieProduit1)).thenReturn(categorieProduit1);
+    public void testAddCategorieProduit() {
+        CategorieProduit expectedCategorieProduit = new CategorieProduit(1L, "category 1");
 
-        CategorieProduit result = categorieProduitService.addCategorieProduit(categorieProduit1);
+        when(categorieProduitRepository.save(expectedCategorieProduit)).thenReturn(expectedCategorieProduit);
 
-        assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getNom()).isEqualTo("Category 1");
+        CategorieProduit actualCategorieProduit = categorieProduitService.addCategorieProduit(expectedCategorieProduit);
+
+        assertEquals(expectedCategorieProduit.getNom(), actualCategorieProduit.getNom());
     }
 
     @Test
-    public void deleteCategorieProduitTest() {
-        categorieProduitService.deleteCategorieProduit(1L);
+    public void testDeleteCategorieProduit() {
+        Long idToDelete = 1L;
 
-        // Verify that deleteById was called with the correct id
-        verify(categorieProduitRepository, times(1)).deleteById(1L);
+        categorieProduitService.deleteCategorieProduit(idToDelete);
+
+        // Verify that the deleteById method of the repository is called once with the correct id
+        verify(categorieProduitRepository, times(1)).deleteById(idToDelete);
     }
 
     @Test
-    public void updateCategorieProduitTest() {
-        when(categorieProduitRepository.save(categorieProduit1)).thenReturn(categorieProduit1);
+    public void testUpdateCategorieProduit() {
+        CategorieProduit expectedCategorieProduit = new CategorieProduit(1L, "category 1");
 
-        CategorieProduit result = categorieProduitService.updateCategorieProduit(categorieProduit1);
+        when(categorieProduitRepository.save(expectedCategorieProduit)).thenReturn(expectedCategorieProduit);
 
-        assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getNom()).isEqualTo("Category 1");
+        CategorieProduit actualCategorieProduit = categorieProduitService.updateCategorieProduit(expectedCategorieProduit);
+
+        assertEquals(expectedCategorieProduit.getNom(), actualCategorieProduit.getNom());
     }
 
     @Test
-    public void retrieveCategorieProduitTest() {
-        when(categorieProduitRepository.findById(1L)).thenReturn(Optional.of(categorieProduit1));
+    public void testRetrieveCategorieProduit() {
+        Long idToRetrieve = 1L;
+        CategorieProduit expectedCategorieProduit = new CategorieProduit(idToRetrieve, "category 1");
 
-        CategorieProduit result = categorieProduitService.retrieveCategorieProduit(1L);
+        when(categorieProduitRepository.findById(idToRetrieve)).thenReturn(Optional.of(expectedCategorieProduit));
 
-        assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getNom()).isEqualTo("Category 1");
+        CategorieProduit actualCategorieProduit = categorieProduitService.retrieveCategorieProduit(idToRetrieve);
+
+        assertEquals(expectedCategorieProduit.getNom(), actualCategorieProduit.getNom());
     }
+
 }
