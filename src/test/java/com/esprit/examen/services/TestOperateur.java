@@ -3,7 +3,6 @@ package com.esprit.examen.services;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.esprit.examen.entities.Operateur;
@@ -19,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Slf4j
-public class OperateurTest {
+public class TestOperateur {
 
         @Autowired
         private IOperateurService operateurService;
