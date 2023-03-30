@@ -38,6 +38,23 @@ pipeline {
                  sh """docker build -t maneeel/tp-achat ."""
             }
         }
+        stage ("JUNIT / MOCKITO") {
+                	    	steps {
+                				script {
+                					try {
+                						sh 'mvn test';
+                						sh 'mvn clean';
+                					}catch (any) {
+                						throw any
+                					} finally {
+                						emailext body: """${currentBuild.currentResult}: stage "JUNIT / MOCKITO" build n°${env.BUILD_NUMBER}
+                						More info at: ${env.BUILD_URL}""",
+                		    			to: 'maneldevops@gmail.com',
+                		    			subject: """ Jenkins stage Build ${currentBuild.currentResult}: Stage "${env.STAGE_NAME}" """
+                					}
+                				}
+                			}
+        }
         stage('PUSH DOCKER IMAGE') {
             steps {
                  sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW  && docker push maneeel/tp-achat '
@@ -59,23 +76,7 @@ pipeline {
          
         }
 
-        stage ("JUNIT / MOCKITO") {
-        	    	steps {
-        				script {
-        					try {
-        						sh 'mvn test';
-        						sh 'mvn clean';
-        					}catch (any) {
-        						throw any
-        					} finally {
-        						emailext body: """${currentBuild.currentResult}: stage "JUNIT / MOCKITO" build n°${env.BUILD_NUMBER}
-        						More info at: ${env.BUILD_URL}""",
-        		    			to: 'maneldevops@gmail.com',
-        		    			subject: """ Jenkins stage Build ${currentBuild.currentResult}: Stage "${env.STAGE_NAME}" """
-        					}
-        				}
-        			}
-            	}
+
         
            stage('DOCKER COMPOSE') {
             steps {
