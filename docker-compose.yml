@@ -7,8 +7,8 @@ services:
   mysql-db:
     image: mysql
     restart: always
-    ports:
-      - 3308:3306
+    #ports:
+    #  - 3308:3306
     #Environment variable for password and default database
     environment:
       MYSQL_ROOT_PASSWORD: 'password'
@@ -20,8 +20,8 @@ services:
   php-my-admin:
     image: phpmyadmin
     restart: always
-    ports:
-      - 8086:80 #Forwars the exposed port 80 on the container to port 8081 on the host machine
+    #ports:
+    #  - 8086:80 #Forwars the exposed port 80 on the container to port 8081 on the host machine
     environment:        
       PMA_HOST: mysql-db
 
@@ -36,7 +36,7 @@ services:
       MYSQL_USER: 'root'
       MYSQL_PASSWORD: 'password'
       MYSQL_DATABASE: 'tpachato'
-    ports:
-      - 9090:9090 #Forwars the exposed port 8080 on the container to port 8080 on the host machine
+    #ports:
+    # - 9090:9090 #Forwars the exposed port 8080 on the container to port 8080 on the host machine
     links:
       - mysql-db
