@@ -71,8 +71,7 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 	</dependencies>
-	
-	<distributionManagement>
+<distributionManagement>
 
 <repository>
  <id>deploymentRepo</id>
@@ -81,20 +80,14 @@
 </repository>
 
 
-</distributionManagement>
+</distributionManagement>	
+
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-                   <groupId>org.apache.maven.plugins</groupId>
-                   <artifactId>maven-resources-plugin</artifactId>
-                   <version>3.1.0</version>
-
-			
 			</plugin>
 		</plugins>
 	</build>
