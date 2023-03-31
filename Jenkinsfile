@@ -45,8 +45,7 @@ pipeline {
                 	    	steps {
                 				script {
                 					try {
-								sh ' echo $USER' ;
-                						sh 'mvn -Djava.io.tmpdir=/tmp test';
+                						sh 'mvn test';
                 						sh 'mvn clean';
                 					}catch (any) {
                 						throw any
