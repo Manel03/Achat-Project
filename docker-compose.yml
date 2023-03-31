@@ -2,7 +2,6 @@ version: "3"
 
 services:
   mysqldb:
-    container_name: mysqldb
     image: mysql:8
     restart: unless-stopped
     environment:
@@ -12,7 +11,6 @@ services:
 
   spring_app:
     image: farahabsi/tp-achat
-    container_name: dockercomposeachat
     restart: on-failure
     ports:
       - 9090:9090
