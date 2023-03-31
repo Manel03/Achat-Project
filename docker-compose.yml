@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: "mysql:latest"
+    restart: "on-failure"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - '/home/mysql-data:/var/lib/mysql'
+  spring_app:
+    image: "islemchatti/islemrepo"
+    container_name: devopsIslem
+    restart: "on-failure"
+    ports:
+      - "9090:9090"
+    depends_on:
+      - mysqldb
