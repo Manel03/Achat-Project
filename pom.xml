@@ -70,10 +70,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>.
-		<exclusion>
-      <groupId>org.quartz-scheduler</groupId>
-      <artifactId>quartz-core</artifactId>
-    </exclusion>
+	
 	</dependencies>
 	
 	<distributionManagement>
