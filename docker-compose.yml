@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   mysqldb:
-    container_name: mysqldb
+    container_name: mysqlislem
     image: "mysql:latest"
     restart: "on-failure"
     environment:
@@ -10,9 +10,9 @@ services:
       - '/home/mysql-data:/var/lib/mysql'
   spring_app:
     image: "islemchatti/islemrepo"
-    container_name: devopsIslem
+    container_name: devopsIslemchatti
     restart: "on-failure"
     ports:
       - "9090:9090"
     depends_on:
-      - mysqldb
+      - mysqlislem
