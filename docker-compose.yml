@@ -7,7 +7,6 @@ services:
   mysql-db:
     image: mysql
     restart: always
-    container_name: mysql-db
     ports:
       - 3308:3306
     #Environment variable for password and default database
@@ -21,7 +20,6 @@ services:
   php-my-admin:
     image: phpmyadmin
     restart: always
-    container_name: php-my-admin
     ports:
       - 8086:80 #Forwars the exposed port 80 on the container to port 8081 on the host machine
     environment:        
@@ -31,7 +29,6 @@ services:
   springboot-app:
     #The docker file in BE, build the jar and provides the docker image.
     image: refkakhanoussi/tp-achat
-    container_name: springboot-app
     restart: always
     #Environment variable for Spring Boot Application.
     environment:
