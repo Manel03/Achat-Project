@@ -53,7 +53,7 @@ pipeline {
                 														
 								mail to: "maneldevops@gmail.com",
                                                                 subject: """ Jenkins stage Build ${currentBuild.currentResult}: Stage "${env.STAGE_NAME}" """ ,
-                                                                body: body: """${currentBuild.currentResult}: stage "JUNIT / MOCKITO" build n°${env.BUILD_NUMBER}
+                                                                body: """${currentBuild.currentResult}: stage "JUNIT / MOCKITO" build n°${env.BUILD_NUMBER}
                 						More info at: ${env.BUILD_URL}"""
                                                                 echo 'successful'
                 					}
