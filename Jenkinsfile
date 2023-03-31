@@ -27,12 +27,12 @@ pipeline {
         }
         stage('MAVEN COMPILE') {
             steps {
-                 sh """mvn compile"""
+                 sh """mvn compile -DskipTests"""
             }
         }
         stage('MAVEN PACKAGE') {
             steps {
-                 sh """mvn package"""
+                 sh """mvn package -DskipTests"""
             }
         }
         
@@ -89,16 +89,14 @@ pipeline {
             }
           
             }
-            stage('Email Notification') {
-                steps {
-                emailext (attachLog: true, body: '''Hi  Welcome to Jenkins email alerts
-                    Thanks 
-                    Jenkins\' community ''', subject: 'Jenkins Job', to: 'maneldevops@gmail.com')
-                    }
-                
-            }
+            
           
         }
+    post {
+    	always {
+    		step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'maneldevops@gmail.com', sendToIndividuals: true])
+		}
+	}
     
 }
 
