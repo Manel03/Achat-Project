@@ -8,6 +8,9 @@ pipeline {
        NEXUS_REPOSITORY = "maven-nexus-repo"
        NEXUS_CREDENTIAL_ID = "nexus"
      }
+    tools{
+        maven 'M2_HOME'
+    }
      stages {
         stage('GIT CHECKOUT') {
             steps {
